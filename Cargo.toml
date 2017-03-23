@@ -1,0 +1,7 @@
+[package]
+name = "regex-tester"
+version = "0.1.0"
+authors = ["Timofey Klyubin <t.klyubin@gmail.com>"]
+
+[dependencies]
+
