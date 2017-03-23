@@ -5,4 +5,3 @@ authors = ["Timofey Klyubin <t.klyubin@gmail.com>"]
 
 [dependencies]
 regex = "0.2"
-
