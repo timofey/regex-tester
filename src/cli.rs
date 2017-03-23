@@ -3,6 +3,7 @@ use std::io;
 use std::io::prelude::*;
 
 use platform::EOL_LEN;
+use commands::*;
 
 static CLI_WELCOME: &'static str = "#> ";
 
@@ -14,10 +15,23 @@ fn cli_request(command: &mut String) {
     command.truncate(len - EOL_LEN as usize);
 }
 
-pub fn cli_parse_command() {
+fn parse_and_execute(command: & String) -> String {
+    match command.as_ref() {
+        "help" => show_help(),
+        _ => default_command()
+    }
+}
+
+pub fn cli_parse_command() -> bool {
     let mut command = String::new();
     cli_request(&mut command);
-    
-    println!("Parsing '{}' ...", command);
+
+    if command == "exit" {
+        return false;
+    }
+    let result = parse_and_execute(&command);
+    println!("{}", result);
+
+    true
 }
 
