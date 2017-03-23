@@ -28,9 +28,6 @@ fn parse_and_execute(command: &String, mut current_re: &mut REHolder) -> String 
     let (com, arg) = command.split_at(space_pos);
     let arg = arg.trim();
 
-    println!("Command was: {}", com);
-    println!("Args was: {}", arg);
-
     match com.as_ref() {
         "help" => show_help(),
         "re" => set_regex(&arg, &mut current_re),
@@ -46,8 +43,10 @@ pub fn cli_parse_command(mut current_re: &mut REHolder) -> bool {
         return false;
     }
 
-    let result = parse_and_execute(&command, &mut current_re);
-    println!("{}", result);
+    if command.len() > 0 {
+        let result = parse_and_execute(&command, &mut current_re);
+        println!("{}", result);
+    }
 
     true
 }
