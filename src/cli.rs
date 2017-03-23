@@ -2,8 +2,6 @@ use std::string::String;
 use std::io;
 use std::io::prelude::*;
 
-use regex::Regex;
-
 use platform::EOL_LEN;
 use commands::*;
 use REHolder;
