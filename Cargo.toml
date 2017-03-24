@@ -1,0 +1,12 @@
+[package]
+name = "regex-tester"
+version = "0.1.0"
+authors = ["Timofey Klyubin <t.klyubin@gmail.com>"]
+description = "A tool for testing regular expression in different inputs."
+repository = "https://github.com/boggad/regex-tester"
+license = "Apache 2.0"
+readme = "README.md"
+
+[dependencies]
+regex = "0.2"
+rustyline = "1.0.0"
