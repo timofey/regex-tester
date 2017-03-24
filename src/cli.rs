@@ -1,19 +1,36 @@
 use std::string::String;
-use std::io;
-use std::io::prelude::*;
+use std::fmt::Write;
 
-use platform::EOL_LEN;
+use rustyline::error::ReadlineError;
+use rustyline::Editor;
+
 use commands::*;
 use REHolder;
 
 static CLI_PROMPT: &'static str = "#> ";
 
-fn cli_request(command: &mut String) {
-    print!("{welcome}", welcome = CLI_PROMPT);
-    io::stdout().flush().unwrap();
-    io::stdin().read_line(command).expect("Failed to read command!");
-    let len = command.len();
-    command.truncate(len - EOL_LEN as usize);
+fn cli_request(mut command: &mut String, mut reader: &mut Editor<()>) -> bool {
+
+    let input = reader.readline(CLI_PROMPT);
+    match input {
+        Ok(line) => {
+            reader.add_history_entry(&line);
+            command.clear();
+            command.write_str(line.as_str()).unwrap();
+            return true;
+        },
+        Err(ReadlineError::Interrupted) => {
+            return false;
+        },
+        Err(ReadlineError::Eof) => {
+            command.clear();
+            command.write_str("exit").unwrap();
+            return true;
+        },
+        Err(err) => {
+            panic!("Error: {:?}", err);
+        }
+    }
 }
 
 fn parse_and_execute(command: &String, mut current_re: &mut REHolder) -> String {
@@ -34,11 +51,16 @@ fn parse_and_execute(command: &String, mut current_re: &mut REHolder) -> String 
     }
 }
 
-pub fn cli_parse_command(mut current_re: &mut REHolder) -> bool {
+pub fn cli_parse_command(mut current_re: &mut REHolder, mut reader: &mut Editor<()>) -> bool {
     let mut command = String::new();
-    cli_request(&mut command);
+    let res = cli_request(&mut command, &mut reader);
+
+    if !res {
+        return false;
+    }
 
     if command == "exit" {
+        println!("Bye!");
         return false;
     }
 

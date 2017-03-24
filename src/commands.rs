@@ -31,8 +31,6 @@ pub fn test_input(input: &str, current_re: &REHolder) -> String {
             let cg = cap.get(c_ind).unwrap();
             output += format!(">>> <{}>: {}{}", c_ind, cg.as_str(), EOL).as_ref();
         }
-        /*for (c_ind, cg) in cap.iter().enumerate() {
-        }*/
     }
     output
 }

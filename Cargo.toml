@@ -5,3 +5,4 @@ authors = ["Timofey Klyubin <t.klyubin@gmail.com>"]
 
 [dependencies]
 regex = "0.2"
+rustyline = "1.0.0"
