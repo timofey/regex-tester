@@ -9,7 +9,7 @@ use REHolder;
 static CLI_PROMPT: &'static str = "#> ";
 
 fn cli_request(command: &mut String) {
-    print!("\n{welcome}", welcome = CLI_PROMPT);
+    print!("{welcome}", welcome = CLI_PROMPT);
     io::stdout().flush().unwrap();
     io::stdin().read_line(command).expect("Failed to read command!");
     let len = command.len();
@@ -27,8 +27,9 @@ fn parse_and_execute(command: &String, mut current_re: &mut REHolder) -> String 
     let arg = arg.trim();
 
     match com.as_ref() {
-        "help" => show_help(),
+        "help" | "?" => show_help(),
         "re" => set_regex(&arg, &mut current_re),
+        "test" => test_input(&arg, &current_re),
         _ => default_command()
     }
 }

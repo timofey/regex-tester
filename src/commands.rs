@@ -15,6 +15,28 @@ pub fn set_regex(regex: &str, current_re: &mut REHolder) -> String {
     format!("Regex was set: {}\n", regex)
 }
 
+pub fn test_input(input: &str, current_re: &REHolder) -> String {
+    if !current_re.re.is_match(input) {
+        return "Input does not match the pattern. ".to_string();
+    }
+
+    let mut output = String::new();
+
+    for (ind, cap) in current_re.re.captures_iter(input).enumerate() {
+        if ind > 0 {
+            output += format!("==========={}", EOL).as_ref();
+        }
+        output += format!(">>> Match #{}, capture groups: {}", ind + 1, EOL).as_ref();
+        for c_ind in 0..cap.len() {
+            let cg = cap.get(c_ind).unwrap();
+            output += format!(">>> <{}>: {}{}", c_ind, cg.as_str(), EOL).as_ref();
+        }
+        /*for (c_ind, cg) in cap.iter().enumerate() {
+        }*/
+    }
+    output
+}
+
 pub fn default_command() -> String {
     "No such command was found. Type 'help' to show help page.".to_string()
 }
