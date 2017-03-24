@@ -5,6 +5,9 @@ rust:
   - nightly
 script:
   - cargo build --verbose
+branches:
+  only:
+    - master
 matrix:
   allow_failures:
     - rust: nightly
