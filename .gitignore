@@ -4,6 +4,7 @@ target/*
 !target/release
 target/release/*
 !target/release/regex-tester
+!target/release/regex-tester.exe
 
 .idea
 .idea/**
